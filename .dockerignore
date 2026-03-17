@@ -1,0 +1,17 @@
+.git
+.idea
+
+# Gradle
+.gradle
+**/.gradle
+build
+**/build
+out
+
+# OS / misc
+.DS_Store
+*.log
+
+# Test reports / coverage
+**/reports
+**/test-results
