@@ -15,8 +15,8 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        checkout scm
-//         git url: 'https://github.com/yellesdve/jenkins-ci-practice.git', branch: '*/develop'
+//         checkout scm
+        git url: 'https://github.com/jelli0t/jenkins-ci-practice.git', branch: '*/develop'
       }
     }
 
