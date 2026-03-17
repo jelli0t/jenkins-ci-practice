@@ -8,6 +8,8 @@ pipeline {
   environment {
     // Keeps Gradle caches inside the workspace (helpful on ephemeral agents too)
     GRADLE_USER_HOME = "${WORKSPACE}/.gradle"
+    JAVA_HOME = "/opt/java/openjdk"
+    PATH = "${JAVA_HOME}/bin:${env.PATH}"
   }
 
   stages {
