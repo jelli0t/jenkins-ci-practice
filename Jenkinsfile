@@ -15,7 +15,8 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        git url: 'https://github.com/yellesdve/jenkins-ci-practice.git', branch: 'develop'
+        git url: 'https://github.com/yellesdve/jenkins-ci-practice.git', branch: '*/develop'
+//         checkout scm
       }
     }
 
@@ -35,7 +36,7 @@ pipeline {
 
     stage('Package') {
       steps {
-        sh './gradlew --no-daemon clean bootJar'
+        sh './gradlew --no-daemon bootJar'
       }
     }
   }
