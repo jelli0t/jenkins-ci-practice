@@ -15,15 +15,26 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        checkout scm
+        git url: 'https://github.com/yellesdve/jenkins-ci-practice.git', branch: 'develop'
       }
     }
 
-    stage('Build & Test') {
+    stage('Setup') {
       steps {
         sh 'java -version'
         sh 'echo $JAVA_HOME'
         sh 'chmod +x ./gradlew'
+      }
+    }
+
+    stage('Test') {
+      steps {
+        sh './gradlew --no-daemon clean test'
+      }
+    }
+
+    stage('Package') {
+      steps {
         sh './gradlew --no-daemon clean bootJar'
       }
     }
