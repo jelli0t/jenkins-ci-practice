@@ -19,6 +19,8 @@ pipeline {
 
     stage('Build & Test') {
       steps {
+        sh 'java -version'
+        sh 'echo $JAVA_HOME'
         sh 'chmod +x ./gradlew'
         sh './gradlew --no-daemon clean bootJar'
       }
