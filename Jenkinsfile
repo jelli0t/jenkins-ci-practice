@@ -16,7 +16,7 @@ pipeline {
     stage('Checkout') {
       steps {
 //         checkout scm
-        git url: 'https://github.com/jelli0t/jenkins-ci-practice.git', branch: '*/develop'
+        git url: 'https://github.com/jelli0t/jenkins-ci-practice.git', branch: 'develop'
       }
     }
 
