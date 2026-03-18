@@ -72,7 +72,7 @@ pipeline {
                 sh "docker rm -f ${CONTAINER_NAME} 2>/dev/null || true"
 
                 // Run the newly built Docker image, mapping port 8080
-                sh "docker run --rm --name ${CONTAINER_NAME} -p ${APP_PORT}:8080 --network ${DOCKER_APP_NET} ${DOCKER_IMAGE}:${IMAGE_TAG}"
+                sh "docker run -d --name ${CONTAINER_NAME} -p ${APP_PORT}:8080 --network ${DOCKER_APP_NET} ${DOCKER_IMAGE}:${IMAGE_TAG}"
             }
         }
     }
