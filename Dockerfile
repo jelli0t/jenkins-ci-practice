@@ -24,8 +24,9 @@ FROM bellsoft/liberica-runtime-container:jre-21-musl AS runtime
 
 WORKDIR /app
 
-RUN useradd --create-home --uid 10001 appuser
-USER 10001
+# Use 'adduser' (standard for Alpine/Alpaquita)
+RUN adduser -D -u 10001 appuser
+USER appuser
 
 COPY --from=build /workspace/build/libs/*.jar /app/app.jar
 
