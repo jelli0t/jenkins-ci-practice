@@ -1,3 +1,5 @@
+def app
+
 pipeline {
   agent any
 
@@ -10,6 +12,9 @@ pipeline {
     GRADLE_USER_HOME = "${WORKSPACE}/.gradle"
     JAVA_HOME = "/opt/java/openjdk"
     PATH = "${JAVA_HOME}/bin:${env.PATH}"
+    DOCKER_IMAGE = 'yelless/jenkins-ci-practice'
+    DOCKER_TAG = 'v0.1.0'
+    DOCKER_REGISTRY_CREDENTIALS = 'dokcerhub-yelless-creds'
   }
 
   stages {
@@ -37,6 +42,13 @@ pipeline {
     stage('Package') {
       steps {
         sh './gradlew --no-daemon bootJar'
+      }
+    }
+
+    stage('Build Docker Image') {
+      steps {
+//         sh 'docker build -t yelless/jenkins-ci-practice .'
+        app = docker.build("${DOCKER_IMAGE}:${DOCKER_TAG}")
       }
     }
   }
