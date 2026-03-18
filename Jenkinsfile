@@ -11,7 +11,7 @@ pipeline {
     JAVA_HOME = "/opt/java/openjdk"
     PATH = "${JAVA_HOME}/bin:${env.PATH}"
     DOCKER_IMAGE = 'yelless/jenkins-ci-practice'
-    DOCKER_TAG = 'v0.1.0'
+    IMAGE_TAG = 'v0.1.0'
     DOCKER_REGISTRY_CREDENTIALS = 'dokcerhub-yelless-creds'
     APP_PORT = 18081
     DOCKER_APP_NET = 'reverse-proxy'
@@ -48,7 +48,7 @@ pipeline {
     stage('Build Docker Image') {
       steps {
         script {
-            docker.build("${DOCKER_IMAGE}:${DOCKER_TAG}")
+            docker.build("${DOCKER_IMAGE}:${IMAGE_TAG}")
         }
       }
     }
