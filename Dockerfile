@@ -1,5 +1,5 @@
 ## Build stage
-FROM eclipse-temurin:17-jdk-jammy AS build
+FROM bellsoft/liberica-runtime-container:jdk-21-stream-musl AS build
 
 WORKDIR /workspace
 
@@ -20,7 +20,7 @@ RUN ./gradlew --no-daemon clean bootJar
 
 
 ## Runtime stage
-FROM eclipse-temurin:17-jre-jammy AS runtime
+FROM bellsoft/liberica-runtime-container:jre-21-musl AS runtime
 
 WORKDIR /app
 
