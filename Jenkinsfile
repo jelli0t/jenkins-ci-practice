@@ -10,6 +10,7 @@ pipeline {
     GRADLE_USER_HOME = "${WORKSPACE}/.gradle"
     JAVA_HOME = "/opt/java/openjdk"
     PATH = "${JAVA_HOME}/bin:${env.PATH}"
+    CONTAINER_NAME = 'jenkins-ci-practice'
     DOCKER_IMAGE = 'yelless/jenkins-ci-practice'
     IMAGE_TAG = 'v0.1.0'
     DOCKER_REGISTRY_CREDENTIALS = 'dokcerhub-yelless-creds'
@@ -68,10 +69,10 @@ pipeline {
         steps {
             script {
                 // Stop and remove any existing container with the same name
-                sh "docker rm -f ${DOCKER_IMAGE} 2>/dev/null || true"
+                sh "docker rm -f ${CONTAINER_NAME} 2>/dev/null || true"
 
                 // Run the newly built Docker image, mapping port 8080
-                sh "docker run --rm --name ${DOCKER_IMAGE} -p ${APP_PORT}:8080 --network ${DOCKER_APP_NET} ${DOCKER_IMAGE}:${IMAGE_TAG}"
+                sh "docker run --rm --name ${CONTAINER_NAME} -p ${APP_PORT}:8080 --network ${DOCKER_APP_NET} ${DOCKER_IMAGE}:${IMAGE_TAG}"
             }
         }
     }
