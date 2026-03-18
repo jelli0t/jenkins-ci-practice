@@ -68,11 +68,10 @@ pipeline {
         steps {
             script {
                 // Stop and remove any existing container with the same name
-                sh "docker stop ${DOCKER_IMAGE} || true"
-                sh "docker rm ${DOCKER_IMAGE} || true"
+                sh "docker rm -f ${DOCKER_IMAGE} 2>/dev/null || true"
 
                 // Run the newly built Docker image, mapping port 8080
-                sh "docker run -d --name ${DOCKER_IMAGE} -p ${APP_PORT}:8080 --network ${DOCKER_APP_NET} ${DOCKER_IMAGE}:${IMAGE_TAG}"
+                sh "docker run --rm --name ${DOCKER_IMAGE} -p ${APP_PORT}:8080 --network ${DOCKER_APP_NET} ${DOCKER_IMAGE}:${IMAGE_TAG}"
             }
         }
     }
