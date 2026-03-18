@@ -13,6 +13,8 @@ pipeline {
     DOCKER_IMAGE = 'yelless/jenkins-ci-practice'
     DOCKER_TAG = 'v0.1.0'
     DOCKER_REGISTRY_CREDENTIALS = 'dokcerhub-yelless-creds'
+    APP_PORT = 18081
+    DOCKER_APP_NET = 'reverse-proxy'
   }
 
   stages {
@@ -48,8 +50,31 @@ pipeline {
         script {
             docker.build("${DOCKER_IMAGE}:${DOCKER_TAG}")
         }
-//         sh 'docker build -t yelless/jenkins-ci-practice .'
       }
+    }
+
+    stage('Push Image -> Docker Hub') {
+        // This step requires Docker Hub credentials to be configured in Jenkins
+        steps {
+            script {
+                docker.withRegistry('https://registry.hub.docker.com', DOCKER_REGISTRY_CREDENTIALS) {
+                    docker.image("${DOCKER_IMAGE}:${IMAGE_TAG}").push()
+                }
+            }
+        }
+    }
+
+    stage('Run Docker Container') {
+        steps {
+            script {
+                // Stop and remove any existing container with the same name
+                sh "docker stop ${DOCKER_IMAGE} || true"
+                sh "docker rm ${DOCKER_IMAGE} || true"
+
+                // Run the newly built Docker image, mapping port 8080
+                sh "docker run -d --name ${DOCKER_IMAGE} -p ${APP_PORT}:8080 --network ${DOCKER_APP_NET} ${DOCKER_IMAGE}:${IMAGE_TAG}"
+            }
+        }
     }
   }
 
