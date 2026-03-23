@@ -4,7 +4,7 @@ plugins {
 	id("io.spring.dependency-management") version "1.1.7"
 }
 
-val springdocVersion = project.findProperty("springdocVersion") as String
+val springdocVersion = providers.gradleProperty("springdocVersion").orElse("2.8.16")
 group = "com.yellesdve"
 version = "0.0.1-SNAPSHOT"
 description = "Demo project for Jenkins CI practice"
