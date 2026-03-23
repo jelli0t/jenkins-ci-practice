@@ -4,7 +4,6 @@ plugins {
 	id("io.spring.dependency-management") version "1.1.7"
 }
 
-val springdocVersion = providers.gradleProperty("springdocVersion").orElse("2.8.16")
 group = "com.yellesdve"
 version = "0.0.1-SNAPSHOT"
 description = "Demo project for Jenkins CI practice"
@@ -28,7 +27,7 @@ repositories {
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocVersion")
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.16")
 
 	// Lombok
 	compileOnly("org.projectlombok:lombok")
