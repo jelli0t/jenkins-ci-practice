@@ -13,7 +13,13 @@ import lombok.*;
 public class Partner {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "partners_id_gen")
+    @SequenceGenerator(
+            name = "partners_id_gen",
+            sequenceName = "partners_id_seq",
+            initialValue = 1,
+            allocationSize = 1
+    )
     private Long id;
 
     private String no;

@@ -6,6 +6,7 @@ WORKDIR /workspace
 # Copy only build configuration first for better layer caching
 COPY gradlew .
 COPY gradlew.bat .
+COPY gradle.properties .
 COPY gradle gradle
 COPY settings.gradle.kts .
 COPY build.gradle.kts .
