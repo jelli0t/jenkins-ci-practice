@@ -38,6 +38,9 @@ dependencies {
 	implementation("org.mapstruct:mapstruct:1.6.3")
 	annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
 
+    implementation("org.flywaydb:flyway-core:11.20.3")
+	runtimeOnly("org.flywaydb:flyway-database-postgresql:11.20.3")
+
 //	runtimeOnly("com.h2database:h2")
 	// Source: https://mvnrepository.com/artifact/org.postgresql/postgresql
 	runtimeOnly("org.postgresql:postgresql:42.7.10")
