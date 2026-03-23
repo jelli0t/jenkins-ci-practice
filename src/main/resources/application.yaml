@@ -1,6 +1,18 @@
 spring:
   application:
     name: jenkins-ci-practice
+  profiles:
+    active: dev
+  # DATASOURCE
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${DB_ENDPOINT}/${DB_NAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  # JPA settings
+  jpa:
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
 
 springdoc:
   api-docs:

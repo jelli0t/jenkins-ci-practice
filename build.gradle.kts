@@ -26,11 +26,24 @@ repositories {
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.16")
+
+	// Lombok
 	compileOnly("org.projectlombok:lombok")
-	runtimeOnly("com.h2database:h2")
-	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 	annotationProcessor("org.projectlombok:lombok")
+	annotationProcessor("org.projectlombok:lombok-mapstruct-binding:0.2.0")
+
+	// Mapstruct
+	implementation("org.mapstruct:mapstruct:1.6.3")
+	annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
+
+//	runtimeOnly("com.h2database:h2")
+	// Source: https://mvnrepository.com/artifact/org.postgresql/postgresql
+	runtimeOnly("org.postgresql:postgresql:42.7.10")
+
+	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }

@@ -16,12 +16,13 @@ pipeline {
     DOCKER_REGISTRY_CREDENTIALS = 'dokcerhub-yelless-creds'
     APP_PORT = 18081
     DOCKER_APP_NET = 'reverse-proxy'
+    DB_ENDPOINT = 'pg.jupiter.neks.rs'
+    DB_NAME = 'neks-erp-dev'
   }
 
   stages {
     stage('Checkout') {
       steps {
-//         checkout scm
         git url: 'https://github.com/jelli0t/jenkins-ci-practice.git', branch: 'develop'
       }
     }
@@ -72,7 +73,25 @@ pipeline {
                 sh "docker rm -f ${CONTAINER_NAME} 2>/dev/null || true"
 
                 // Run the newly built Docker image, mapping port 8080
-                sh "docker run -d --name ${CONTAINER_NAME} -p ${APP_PORT}:8080 --network ${DOCKER_APP_NET} ${DOCKER_IMAGE}:${IMAGE_TAG}"
+//                 sh "docker run -d --name ${CONTAINER_NAME} -p ${APP_PORT}:8080 --network ${DOCKER_APP_NET} ${DOCKER_IMAGE}:${IMAGE_TAG}"
+                withCredentials([
+                    usernamePassword(
+                      credentialsId: 'postgres-dev-credentials',
+                      usernameVariable: 'DB_USERNAME',
+                      passwordVariable: 'DB_PASSWORD'
+                    )
+                ]) {
+                    sh """
+                        docker run -d --name ${env.CONTAINER_NAME} \\
+                            -p ${APP_PORT}:8080 \\
+                            --network ${DOCKER_APP_NET} \\
+                            -e DB_ENDPOINT='${env.DB_ENDPOINT}' \\
+                            -e DB_NAME='${env.DB_NAME}' \\
+                            -e DB_USERNAME=$DB_USERNAME \\
+                            -e DB_PASSWORD=$DB_PASSWORD \\
+                            ${DOCKER_IMAGE}:${IMAGE_TAG}
+                    """
+                }
             }
         }
     }
