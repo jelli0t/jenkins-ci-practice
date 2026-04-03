@@ -12,11 +12,11 @@ pipeline {
     PATH = "${JAVA_HOME}/bin:${env.PATH}"
     CONTAINER_NAME = 'jenkins-ci-practice'
     DOCKER_IMAGE = 'yelless/jenkins-ci-practice'
-    IMAGE_TAG = 'v0.1.0'
+    IMAGE_TAG = 'v0.1.1'
     DOCKER_REGISTRY_CREDENTIALS = 'dokcerhub-yelless-creds'
     APP_PORT = 18081
     DOCKER_APP_NET = 'reverse-proxy'
-    DB_ENDPOINT = 'pg.jupiter.neks.rs'
+    DB_ENDPOINT = 'postgres'
     DB_NAME = 'neks-erp-dev'
   }
 
